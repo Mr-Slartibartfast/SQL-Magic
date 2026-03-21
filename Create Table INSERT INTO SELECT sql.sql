@@ -8,8 +8,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[UK_economic_data](
-	[SysRecId] [int] IDENTITY(1,1) NOT NULL,
+CREATE TABLE [dbo].[UK_economic_data]( 
+	[SysRecId] [int] IDENTITY(1,1) NOT NULL, -- This identity column creates a unique identifier that auto-increments with each new record -- VERY helpful in indexes
 	[country] [varchar](max) NULL,
 	[year] [bigint] NULL,
 	[iso_code] [varchar](max) NULL,
@@ -26,7 +26,7 @@ GO
 
 
 INSERT INTO [WorldEconomicData].[dbo].[UK_economic_data](
-      [country]
+      [country] -- Notice here that I left out the SysRecId column - you cannot INSERT into an IDENTITY column without first turning on IDENTITY INSERT = ON, but I allow the identity column to auto populated
       ,[year]
       ,[iso_code]
       ,[population]
@@ -48,5 +48,5 @@ SELECT [country]
       ,[income_top1]
       ,[income_top10]
       ,[income_bottom50]
-  FROM [WorldEconomicData].[dbo].[world_economic_data]
+  FROM [WorldEconomicData].[dbo].[world_economic_data] -- selects data to populate the UK table from the world data table using a WHERE filter (below)
   WHERE country='United Kingdom'
